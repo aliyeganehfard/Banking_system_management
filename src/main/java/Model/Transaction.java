@@ -2,27 +2,22 @@ package Model;
 
 public class Transaction {
     private Integer id;
-    private CreditCard originCreditCard;
-    private CreditCard destinationCreditCard;
+    private CreditCard creditCard;
     private Long amount;
     private TransactionType type;
 
     public Transaction() {
     }
 
-    public Transaction(CreditCard originCreditCard, CreditCard destinationCreditCard,
-                       Long amount, TransactionType type) {
-        this.originCreditCard = originCreditCard;
-        this.destinationCreditCard = destinationCreditCard;
+    public Transaction(CreditCard creditCard, Long amount, TransactionType type) {
+        this.creditCard = creditCard;
         this.amount = amount;
         this.type = type;
     }
 
-    public Transaction(Integer id, CreditCard originCreditCard, CreditCard destinationCreditCard,
-                       Long amount, TransactionType type) {
+    public Transaction(Integer id, CreditCard creditCard, Long amount, TransactionType type) {
         this.id = id;
-        this.originCreditCard = originCreditCard;
-        this.destinationCreditCard = destinationCreditCard;
+        this.creditCard = creditCard;
         this.amount = amount;
         this.type = type;
     }
@@ -35,20 +30,12 @@ public class Transaction {
         this.id = id;
     }
 
-    public CreditCard getOriginCreditCard() {
-        return originCreditCard;
+    public CreditCard getCreditCard() {
+        return creditCard;
     }
 
-    public void setOriginCreditCard(CreditCard originCreditCard) {
-        this.originCreditCard = originCreditCard;
-    }
-
-    public CreditCard getDestinationCreditCard() {
-        return destinationCreditCard;
-    }
-
-    public void setDestinationCreditCard(CreditCard destinationCreditCard) {
-        this.destinationCreditCard = destinationCreditCard;
+    public void setCreditCard(CreditCard creditCard) {
+        this.creditCard = creditCard;
     }
 
     public Long getAmount() {
@@ -71,8 +58,7 @@ public class Transaction {
     public String toString() {
         return "Transaction{" +
                 "id=" + id +
-                ", originCreditCard=" + originCreditCard +
-                ", destinationCreditCard=" + destinationCreditCard +
+                ", creditCard=" + creditCard +
                 ", amount=" + amount +
                 ", type=" + type +
                 '}';
