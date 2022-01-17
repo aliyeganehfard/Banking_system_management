@@ -8,24 +8,36 @@ public class CreditCard {
     private String cardNumber;
     private String cvv2;
     private Date expirationDate;
+    private String password;
 
     public CreditCard() {
     }
 
-    public CreditCard(Account account, String cardNumber,
-                      String cvv2, Date expirationDate) {
+    public CreditCard(Account account, String cardNumber, String cvv2,
+                      Date expirationDate, String password) {
         this.account = account;
         this.cardNumber = cardNumber;
         this.cvv2 = cvv2;
         this.expirationDate = expirationDate;
+        this.password = password;
     }
 
-    public CreditCard(Integer id, Account account, String cardNumber, String cvv2, Date expirationDate) {
+    public CreditCard(Integer id, Account account, String cardNumber,
+                      String cvv2, Date expirationDate, String password) {
         this.id = id;
         this.account = account;
         this.cardNumber = cardNumber;
         this.cvv2 = cvv2;
         this.expirationDate = expirationDate;
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getCardNumber() {
@@ -76,6 +88,7 @@ public class CreditCard {
                 ", cardNumber='" + cardNumber + '\'' +
                 ", cvv2='" + cvv2 + '\'' +
                 ", expirationDate=" + expirationDate +
+                ", password='" + password + '\'' +
                 '}';
     }
 }
