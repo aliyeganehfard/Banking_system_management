@@ -1,25 +1,38 @@
 package Model;
 
+import java.sql.Date;
+
 public class Transaction {
     private Integer id;
     private CreditCard creditCard;
     private Long amount;
     private TransactionType type;
+    private Date date;
 
     public Transaction() {
     }
 
-    public Transaction(CreditCard creditCard, Long amount, TransactionType type) {
+    public Transaction(CreditCard creditCard, Long amount, TransactionType type, Date date) {
         this.creditCard = creditCard;
         this.amount = amount;
         this.type = type;
+        this.date = date;
     }
 
-    public Transaction(Integer id, CreditCard creditCard, Long amount, TransactionType type) {
+    public Transaction(Integer id, CreditCard creditCard, Long amount, TransactionType type, Date date) {
         this.id = id;
         this.creditCard = creditCard;
         this.amount = amount;
         this.type = type;
+        this.date = date;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Integer getId() {
@@ -61,6 +74,7 @@ public class Transaction {
                 ", creditCard=" + creditCard +
                 ", amount=" + amount +
                 ", type=" + type +
+                ", date=" + date +
                 '}';
     }
 }
