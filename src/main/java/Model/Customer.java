@@ -71,7 +71,7 @@ public class Customer {
     public String toString() {
         return "Customer{" +
                 "id=" + id +
-                ", bankBranch=" + bankBranch +
+                ", bankBranch=" + bankBranch.getBank().getName() +
                 ", name='" + name + '\'' +
                 ", nationalCode='" + nationalCode + '\'' +
                 ", phone='" + phone + '\'' +
