@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class Transaction {
     private Integer id;
+    private Account account;
     private CreditCard creditCard;
     private Long amount;
     private TransactionType type;
@@ -12,19 +13,29 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(CreditCard creditCard, Long amount, TransactionType type, Date date) {
+    public Transaction(Account account, CreditCard creditCard, Long amount, TransactionType type, Date date) {
+        this.account = account;
         this.creditCard = creditCard;
         this.amount = amount;
         this.type = type;
         this.date = date;
     }
 
-    public Transaction(Integer id, CreditCard creditCard, Long amount, TransactionType type, Date date) {
+    public Transaction(Integer id, Account account, CreditCard creditCard, Long amount, TransactionType type, Date date) {
         this.id = id;
+        this.account = account;
         this.creditCard = creditCard;
         this.amount = amount;
         this.type = type;
         this.date = date;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public Date getDate() {
@@ -71,7 +82,8 @@ public class Transaction {
     public String toString() {
         return "Transaction{" +
                 "id=" + id +
-                ", creditCard=" + creditCard +
+                ", deposit=" + account.getBalance() +
+                ", creditCard=" + creditCard.getCardNumber() +
                 ", amount=" + amount +
                 ", type=" + type +
                 ", date=" + date +
