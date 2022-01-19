@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BankBranchRepository {
@@ -11,6 +12,20 @@ public class BankBranchRepository {
     private String query;
 
     public BankBranchRepository() {
+        try {
+            query="create table if not exists BSM_bank_branch " +
+                    "( " +
+                    "    id                    serial primary key, " +
+                    "    bank_id               Integer, " +
+                    "    manager_name          varchar(100), " +
+                    "    manager_national_code char(10),  " +
+                    "    bank_address          varchar(200), " +
+                    "    constraint BSM_B_ID foreign key (bank_id) references BSM_bank (id) " +
+                    ")";
+            connection.prepareStatement(query).execute();
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     public Integer insert(BankBranch bankBranch) {
@@ -42,7 +57,7 @@ public class BankBranchRepository {
         try {
             query = "select * from BSM_bank_branch " +
                     "inner join BSM_bank Bb on Bb.id = BSM_bank_branch.bank_id " +
-                    "where id = ?";
+                    "where BSM_bank_branch.id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -62,18 +77,18 @@ public class BankBranchRepository {
         return bankBranch;
     }
 
-    //    show all branch of bank
-    public List<BankBranch> findAll(BankBranch bankBranch) {
-        List<BankBranch> bankBranches = null;
+
+
+    //    show all bank branch
+    public List<BankBranch> findAll() {
+        List<BankBranch> bankBranches = new ArrayList<BankBranch>();
         try {
             query = "select * from BSM_bank_branch " +
-                    "where bank_id=?";
+                    "inner join BSM_bank Bb on Bb.id = BSM_bank_branch.bank_id";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, bankBranch.getBank().getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                bankBranches.add(
-                        new BankBranch(
+                bankBranches.add(new BankBranch(
                                 resultSet.getInt("id"),
                                 new Bank(resultSet.getInt("bank_id"), resultSet.getString("bank_name")),
                                 resultSet.getString("manager_name"),
