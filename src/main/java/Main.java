@@ -290,7 +290,7 @@ public class Main {
         System.out.println("showBankBranch");
         System.out.println("showAccount");
         System.out.println("showCreditCard");
-        System.out.println("showTransaction");
+        System.out.println("showTransaction accountId date");
         System.out.println("createBankAccount customerId balance");
         System.out.println("setPassword accountId newPassword");
         System.out.println("deposit accountId amount");
