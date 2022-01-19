@@ -71,7 +71,7 @@ public class BankEmployee {
     public String toString() {
         return "BankEmployee{" +
                 "id=" + id +
-                ", bankBranch=" + bankBranch +
+                ", bankBranch=" + bankBranch.getManagerName() +
                 ", name='" + name + '\'' +
                 ", nationalCode='" + nationalCode + '\'' +
                 ", phone='" + phone + '\'' +
