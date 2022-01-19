@@ -13,6 +13,11 @@ public class CreditCard {
     public CreditCard() {
     }
 
+    public CreditCard(Integer id, String password) {
+        this.id = id;
+        this.password = password;
+    }
+
     public CreditCard(Account account, String cardNumber, String cvv2,
                       Date expirationDate, String password) {
         this.account = account;
@@ -84,7 +89,7 @@ public class CreditCard {
     public String toString() {
         return "CreditCard{" +
                 "id=" + id +
-                ", account=" + account +
+                ", account id=" + account.getId() +
                 ", cardNumber='" + cardNumber + '\'' +
                 ", cvv2='" + cvv2 + '\'' +
                 ", expirationDate=" + expirationDate +
