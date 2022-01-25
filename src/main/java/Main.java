@@ -1,6 +1,8 @@
 import Controller.*;
+import Exceptions.*;
 import Model.*;
 
+import java.lang.reflect.Executable;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.Date;
@@ -16,7 +18,6 @@ public class Main {
         Bank bank = null;
         BankBranch bankBranch = null;
         Customer customer = null;
-
 
         var bankService = new BankService();
         var bankBranchService = new BankBranchService();
@@ -44,7 +45,13 @@ public class Main {
             commend = commendLine.trim().split(" ");
             switch (commend[0]) {
                 case "addBank":
-                    bankService.insert(new Bank(commend[1]));
+                    try {
+                        ExceptionHandling.isWord(commend[1]);
+                        bankService.insert(new Bank(commend[1]));
+                    } catch (WordException wordException) {
+                        System.out.println("incorrect name!");
+                    }
+
                     break;
                 case "showBankBranch":
                     List<BankBranch> bankBranches = bankBranchService.findAll();
@@ -54,39 +61,73 @@ public class Main {
 
                     break;
                 case "customerCreatAccount":
-                    customerService.insert(
-                            new Customer(
-                                    bankBranchService.findById(Integer.valueOf(commend[1])),
-                                    commend[2],
-                                    commend[3],
-                                    commend[4]
-                            )
-                    );
+                    try {
+                        ExceptionHandling.isWord(commend[2]);
+                        ExceptionHandling.isNationalCode(commend[3]);
+                        ExceptionHandling.isPhoneNumber(commend[4]);
+                        customerService.insert(
+                                new Customer(
+                                        bankBranchService.findById(Integer.valueOf(commend[1])),
+                                        commend[2],
+                                        commend[3],
+                                        commend[4]
+                                )
+                        );
+                    } catch (NullException nullException) {
+                        System.out.println("bank branch not found!");
+                    } catch (WordException wordException) {
+                        System.out.println("incorrect input for name!");
+                    } catch (NationalCodeException nationalCodeException) {
+                        System.out.println("incorrect National code!");
+                    } catch (PhoneNumberException phoneNumberException) {
+                        System.out.println("incorrect phone number!");
+                    }
                     break;
                 case "bankLogin":
-                    bank = bankService.findById(Integer.valueOf(commend[1]));
-                    if (bank != null) {
-                        state = true;
-                        showBankMenu();
-                        bankId = bank.getId();
-                        type = 1;
+                    try {
+                        ExceptionHandling.isDigit(commend[1]);
+                        bank = bankService.findById(Integer.valueOf(commend[1]));
+                        if (bank != null) {
+                            state = true;
+                            showBankMenu();
+                            bankId = bank.getId();
+                            type = 1;
+                        }
+                    } catch (DigitException digitException) {
+                        System.out.println("please enter the number!");
+                    } catch (NullException nullException) {
+                        System.out.println("bank not found!");
                     }
                     break;
                 case "bankBranchLogin":
-                    bankBranch = bankBranchService.findById(Integer.valueOf(commend[1]));
-                    if (bankBranch != null) {
-                        state = true;
-                        showBranchMenu();
-                        bankBranchId = bankBranch.getId();
-                        type = 2;
+                    try {
+                        ExceptionHandling.isDigit(commend[1]);
+                        bankBranch = bankBranchService.findById(Integer.valueOf(commend[1]));
+                        if (bankBranch != null) {
+                            state = true;
+                            showBranchMenu();
+                            bankBranchId = bankBranch.getId();
+                            type = 2;
+                        }
+                    } catch (DigitException digitException) {
+                        System.out.println("please enter the number!");
+                    } catch (NullException nullException) {
+                        System.out.println("bank branch not found!");
                     }
                     break;
                 case "customerLogin":
-                    customer = customerService.findByID(commend[1], Integer.valueOf(commend[2]));
-                    if (customer != null) {
-                        state = true;
-                        showCustomerMenu();
-                        type = 3;
+                    try {
+                        ExceptionHandling.isNationalCode(commend[1]);
+                        customer = customerService.findByID(commend[1], Integer.valueOf(commend[2]));
+                        if (customer != null) {
+                            state = true;
+                            showCustomerMenu();
+                            type = 3;
+                        }
+                    } catch (NationalCodeException nationalCodeException) {
+                        System.out.println("incorrect national code!");
+                    } catch (NullException nullException) {
+                        System.out.println("customer not found!");
                     }
                     break;
                 case "menu":
@@ -107,19 +148,27 @@ public class Main {
                                 System.out.println(bankService.findById(bankId));
                                 break;
                             case "showBranch":
-                                List<BankBranch> bankBranches =bankService.findAllBranch(bank);
+                                List<BankBranch> bankBranches = bankService.findAllBranch(bank);
                                 for (BankBranch branch : bankBranches) {
                                     System.out.println(branch);
                                 }
                                 break;
                             case "addBranch":
-                                bankBranchService.insert(new BankBranch(
-                                                bankService.findById(bankId),
-                                                commend[1],
-                                                commend[2],
-                                                commend[3]
-                                        )
-                                );
+                                try {
+                                    ExceptionHandling.isWord(commend[1]);
+                                    ExceptionHandling.isNationalCode(commend[2]);
+                                    bankBranchService.insert(new BankBranch(
+                                                    bankService.findById(bankId),
+                                                    commend[1],
+                                                    commend[2],
+                                                    commend[3]
+                                            )
+                                    );
+                                } catch (WordException wordException) {
+                                    System.out.println("incorrect name!");
+                                } catch (NationalCodeException nationalCodeException) {
+                                    System.out.println("incorrect national code");
+                                }
                                 break;
                             case "help":
                                 showBankMenu();
@@ -142,20 +191,20 @@ public class Main {
                                 System.out.println(bankBranchService.findById(bankBranchId));
                                 break;
                             case "showEmployee":
-                                List<BankEmployee> bankEmployees =bankBranchService.findAllEmployee(bankBranch);
+                                List<BankEmployee> bankEmployees = bankBranchService.findAllEmployee(bankBranch);
                                 for (BankEmployee employee : bankEmployees) {
                                     System.out.println(employee);
                                 }
                                 break;
                             case "showCustomer":
-                                List<Customer> customers =bankBranchService.findAllCustomer(bankBranch);
-                                for (Customer ctmr: customers) {
+                                List<Customer> customers = bankBranchService.findAllCustomer(bankBranch);
+                                for (Customer ctmr : customers) {
                                     System.out.println(ctmr);
                                 }
                                 break;
                             case "showAccount":
-                                List<Account> accounts =bankBranchService.findAllAccount(bankBranch);
-                                for (Account acnt :accounts) {
+                                List<Account> accounts = bankBranchService.findAllAccount(bankBranch);
+                                for (Account acnt : accounts) {
                                     System.out.println(acnt);
                                 }
                                 break;
@@ -166,16 +215,33 @@ public class Main {
                                 }
                                 break;
                             case "activatedAccount":
-                                blockAccountService.delete(Integer.valueOf(commend[1]));
+                                try {
+                                    ExceptionHandling.isDigit(commend[1]);
+                                    blockAccountService.delete(Integer.valueOf(commend[1]));
+                                } catch (DigitException digitException) {
+                                    System.out.println("incorrect input!");
+                                }
                                 break;
                             case "addEmployee":
-                                bankEmployeeService.insert(new BankEmployee(
-                                                bankBranchService.findById(bankBranchId),
-                                                commend[1],
-                                                commend[2],
-                                                commend[3]
-                                        )
-                                );
+                                try {
+                                    ExceptionHandling.isWord(commend[1]);
+                                    ExceptionHandling.isNationalCode(commend[2]);
+                                    ExceptionHandling.isPhoneNumber(commend[3]);
+                                    bankEmployeeService.insert(new BankEmployee(
+                                                    bankBranchService.findById(bankBranchId),
+                                                    commend[1],
+                                                    commend[2],
+                                                    commend[3]
+                                            )
+                                    );
+                                } catch (WordException wordException) {
+                                    System.out.println("incorrect name!");
+                                } catch (NationalCodeException nationalCodeException) {
+                                    System.out.println("incorrect national code!");
+                                } catch (PhoneNumberException phoneNumberException) {
+                                    System.out.println("incorrect phone number!");
+                                }
+
                                 break;
                             case "help":
                                 showBranchMenu();
@@ -198,44 +264,117 @@ public class Main {
                                 System.out.println(customerService.findByID(customer));
                                 break;
                             case "showBankBranch":
-                                List<BankBranch> bankBranches =bankBranchService.findAll();
+                                List<BankBranch> bankBranches = bankBranchService.findAll();
                                 for (BankBranch bbrnch : bankBranches) {
                                     System.out.println(bbrnch);
                                 }
                                 break;
                             case "showAccount":
-                                List<Account> accountList =customerService.findAllAccount(customer);
+                                List<Account> accountList = customerService.findAllAccount(customer);
                                 for (Account account : accountList) {
                                     System.out.println(account);
                                 }
                                 break;
                             case "showCreditCard":
-                                List<CreditCard> creditCardList =customerService.findAllCreditCard(customer);
+                                List<CreditCard> creditCardList = customerService.findAllCreditCard(customer);
                                 for (CreditCard creditCard : creditCardList) {
                                     System.out.println(creditCard);
                                 }
                                 break;
                             case "showTransaction":
-                                    transactionService.printTransaction(Integer.valueOf(commend[1]),Date.valueOf(commend[2]));
+                                try {
+                                    ExceptionHandling.isDate(commend[2]);
+                                    ExceptionHandling.isDigit(commend[1]);
+                                    transactionService.printTransaction(
+                                            Integer.valueOf(commend[1]),
+                                            Date.valueOf(commend[2])
+                                    );
+                                } catch (DateException dateException) {
+                                    System.out.println("incorrect date!");
+                                } catch (DigitException digitException) {
+                                    System.out.println("incorrect accountId!");
+                                }
+
                                 break;
                             case "createBankAccount":
-                                accountService.insert(new Account(
-                                                customer,
-                                                Long.valueOf(commend[2])
-                                        )
-                                );
+                                try {
+                                    ExceptionHandling.isDigit(commend[2]);
+                                    ExceptionHandling.isDigit(commend[1]);
+                                    accountService.insert(new Account(
+                                                    customer,
+                                                    Long.valueOf(commend[2])
+                                            )
+                                    );
+                                } catch (DigitException digitException) {
+                                    System.out.println("enter the number!");
+                                }
                                 break;
                             case "setPassword":
-                                creditCardService.editPassword(Integer.valueOf(commend[1]),commend[2]);
+                                try {
+                                    ExceptionHandling.isDigit(commend[1]);
+                                    creditCardService.editPassword(
+                                            Integer.valueOf(commend[1])
+                                            , commend[2]
+                                    );
+                                } catch (NullException nullException) {
+                                    System.out.println("credit card not found!");
+                                } catch (DigitException digitException) {
+                                    System.out.println("enter the number!");
+                                }
                                 break;
                             case "deposit":
-                                transactionService.deposit(Integer.valueOf(commend[1]), Long.valueOf(commend[2]) , TransactionType.DEPOSIT);
+                                try {
+                                    ExceptionHandling.isDigit(commend[1]);
+                                    ExceptionHandling.isDigit(commend[2]);
+                                    transactionService.deposit(
+                                            Integer.valueOf(commend[1]),
+                                            Long.valueOf(commend[2]),
+                                            TransactionType.DEPOSIT
+                                    );
+                                } catch (NullException nullException) {
+                                    System.out.println("account not found!");
+                                } catch (DigitException digitException) {
+                                    System.out.println("incorrect account id!");
+                                } catch (MoneyException moneyException) {
+                                    System.out.println("enter the correct money!");
+                                }
                                 break;
                             case "withdrew":
-                                transactionService.withdraw(Integer.valueOf(commend[1]), Long.valueOf(commend[2]) , TransactionType.WITHDRAW);
+                                try {
+                                    ExceptionHandling.isDigit(commend[1]);
+                                    ExceptionHandling.isDigit(commend[2]);
+                                    transactionService.withdraw(
+                                            Integer.valueOf(commend[1]),
+                                            Long.valueOf(commend[2]),
+                                            TransactionType.WITHDRAW
+                                    );
+                                } catch (NullException nullException) {
+                                    System.out.println("account not found!");
+                                } catch (DigitException digitException) {
+                                    System.out.println("incorrect account id!");
+                                } catch (MoneyException moneyException) {
+                                    System.out.println("enter the correct money!");
+                                }
                                 break;
                             case "cardToCard":
-                                transactionService.cardToCard(commend[1],commend[2],commend[3],Long.valueOf(commend[4]));
+                                try{
+                                    ExceptionHandling.isCardNumber(commend[1]);
+                                    ExceptionHandling.isCardNumber(commend[2]);
+                                    ExceptionHandling.isCvv2(commend[3]);
+                                    ExceptionHandling.isMoney(commend[4]);
+                                    transactionService.cardToCard(
+                                            commend[1],
+                                            commend[2],
+                                            commend[3],
+                                            Long.valueOf(commend[4])
+                                    );
+                                }catch (CardNumberException cardNumberException){
+                                    System.out.println("incorrect card number!");
+                                }catch (Cvv2Exception cvv2Exception){
+                                    System.out.println("incorrect cvv2");
+                                }catch (MoneyException moneyException){
+                                    System.out.println("incorrect money!");
+                                }
                                 break;
                             case "help":
                                 showCustomerMenu();
