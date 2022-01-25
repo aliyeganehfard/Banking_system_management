@@ -24,7 +24,7 @@ public class BankEmployeeRepository {
                     ")";
             connection.prepareStatement(query).execute();
         }catch (Exception e){
-            System.out.println(e);
+//            System.out.println(e);
         }
     }
 
@@ -46,7 +46,7 @@ public class BankEmployeeRepository {
             }
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
         return id;
     }
@@ -60,7 +60,7 @@ public class BankEmployeeRepository {
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
     }
 
@@ -90,7 +90,7 @@ public class BankEmployeeRepository {
             }
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
         return bankEmployee;
     }
@@ -122,7 +122,7 @@ public class BankEmployeeRepository {
                 );
             }
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
         return bankEmployees;
     }
