@@ -1,5 +1,6 @@
 package Controller;
 
+import Exceptions.NullException;
 import Model.*;
 
 import java.util.List;
@@ -36,8 +37,8 @@ public class BankBranchService {
         return customerRepository.findAll(bankBranch);
     }
 
-//    show all account of bank branch
-    public List<Account> findAllAccount(BankBranch bankBranch){
+    //    show all account of bank branch
+    public List<Account> findAllAccount(BankBranch bankBranch) {
         return accountRepository.findAll(bankBranch);
     }
 
