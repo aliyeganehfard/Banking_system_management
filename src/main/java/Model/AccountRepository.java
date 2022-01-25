@@ -22,7 +22,7 @@ public class AccountRepository {
                     ")";
             connection.prepareStatement(query).execute();
         }catch (Exception e){
-            System.out.println(e);
+//            System.out.println("creat table problem!");
         }
     }
 
@@ -42,7 +42,8 @@ public class AccountRepository {
             }
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println("insert to account problem");
+
         }
         return id;
     }
@@ -58,8 +59,7 @@ public class AccountRepository {
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
-            System.out.println("heraljk");
+//            System.out.println("update account problem");
         }
     }
 
@@ -72,7 +72,7 @@ public class AccountRepository {
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println("delete account problem");
         }
     }
 
@@ -108,7 +108,7 @@ public class AccountRepository {
             }
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e+"find by id");
+//            System.out.println("find by id (account) problem");
         }
         return account;
     }
@@ -145,7 +145,7 @@ public class AccountRepository {
             }
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println("account find all problem");
         }
         return accounts;
     }
@@ -183,7 +183,7 @@ public List<Account> findAll(Customer customer) {
         }
         preparedStatement.close();
     } catch (Exception e) {
-        System.out.println(e);
+//        System.out.println("account find all problem");
     }
     return accounts;
 }
