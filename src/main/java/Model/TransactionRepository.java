@@ -1,5 +1,7 @@
 package Model;
 
+import Exceptions.NullException;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,7 @@ public class TransactionRepository {
                     ")";
             connection.prepareStatement(query).execute();
         }catch (Exception e){
-            System.out.println(e);
+//            System.out.println(e);
         }
     }
 
@@ -41,7 +43,7 @@ public class TransactionRepository {
 
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e +" transaction");
+//            System.out.println(e +" transaction");
         }
 
     }
@@ -58,7 +60,7 @@ public class TransactionRepository {
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
     }
 
@@ -71,7 +73,7 @@ public class TransactionRepository {
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
     }
 
@@ -128,7 +130,7 @@ public class TransactionRepository {
             }
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
         return transactions;
     }
