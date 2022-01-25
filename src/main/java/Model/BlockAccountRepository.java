@@ -23,7 +23,7 @@ public class BlockAccountRepository {
                     ")";
             connection.prepareStatement(query).execute();
         }catch (Exception e){
-            System.out.println(e);
+//            System.out.println(e);
         }
     }
 
@@ -37,7 +37,7 @@ public class BlockAccountRepository {
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
     }
 
@@ -50,7 +50,7 @@ public class BlockAccountRepository {
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
     }
 
@@ -90,7 +90,7 @@ public class BlockAccountRepository {
             }
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
         return blockAccount;
     }
@@ -131,7 +131,7 @@ public class BlockAccountRepository {
             }
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
         return blockAccounts;
     }
