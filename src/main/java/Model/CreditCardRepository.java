@@ -1,5 +1,7 @@
 package Model;
 
+import Exceptions.NullException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +27,7 @@ public class CreditCardRepository {
                     ")";
             connection.prepareStatement(query).execute();
         }catch (Exception e){
-            System.out.println(e);
+//            System.out.println(e);
         }
     }
 
@@ -44,7 +46,7 @@ public class CreditCardRepository {
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
 
     }
@@ -60,7 +62,7 @@ public class CreditCardRepository {
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
     }
 
@@ -80,7 +82,7 @@ public class CreditCardRepository {
 
     //show customer credit card
     public CreditCard findById(Integer accountId) {
-        CreditCard creditCard = new CreditCard();
+        CreditCard creditCard = null;
         try {
             query = "select * from BSM_credit_card Bcc " +
                     "inner join BSM_account Ba on Ba.id = Bcc.account_id " +
@@ -118,8 +120,10 @@ public class CreditCardRepository {
             }
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e + "customer credit card");
+//            System.out.println(e + "customer credit card");
         }
+        if (creditCard == null)
+            throw new NullException();
         return creditCard;
     }
 
@@ -164,7 +168,7 @@ public class CreditCardRepository {
             }
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
         return creditCards;
     }
@@ -210,7 +214,7 @@ public class CreditCardRepository {
             }
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e+"find card");
+//            System.out.println(e+"find card");
         }
         return creditCard;
     }
