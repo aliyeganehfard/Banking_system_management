@@ -1,5 +1,7 @@
 package Model;
 
+import Exceptions.NullException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +22,7 @@ public class BankRepository {
                     ")";
             connection.prepareStatement(query).execute();
         }catch (Exception e){
-            System.out.println(e);
+//            System.out.println(e);
         }
     }
 
@@ -38,7 +40,7 @@ public class BankRepository {
             }
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
         return id;
     }
@@ -59,7 +61,7 @@ public class BankRepository {
             }
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
         return banks;
     }
@@ -80,8 +82,10 @@ public class BankRepository {
             }
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
+        if (bank == null)
+            throw new NullException();
         return bank;
     }
 
@@ -108,8 +112,8 @@ public class BankRepository {
 
             }
         } catch (Exception e) {
-            System.out.println(e);
-            System.out.println("hi");
+//            System.out.println(e);
+//            System.out.println("hi");
         }
         return bankBranches;
     }
