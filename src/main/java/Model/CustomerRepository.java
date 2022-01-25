@@ -1,5 +1,7 @@
 package Model;
 
+import Exceptions.NullException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,7 +26,7 @@ public class CustomerRepository {
                     ")";
             connection.prepareStatement(query).execute();
         }catch (Exception e){
-            System.out.println(e);
+//            System.out.println(e);
         }
     }
 
@@ -46,7 +48,7 @@ public class CustomerRepository {
             }
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
         return id;
     }
@@ -60,7 +62,7 @@ public class CustomerRepository {
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
     }
 
@@ -91,7 +93,7 @@ public class CustomerRepository {
             }
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
         return customer;
     }
@@ -124,8 +126,11 @@ public class CustomerRepository {
             }
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
+        if (customer == null)
+            throw new NullException();
+
         return customer;
     }
 
@@ -157,7 +162,7 @@ public class CustomerRepository {
                 );
             }
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
         return customers;
     }
@@ -195,7 +200,7 @@ public class CustomerRepository {
             }
             preparedStatement.close();
         } catch (Exception e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
         return accounts;
     }
