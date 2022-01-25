@@ -13,7 +13,7 @@ public class PostgresConnection {
                     "jdbc:postgresql://localhost:5432/postgres",
                     "postgres","ali.1381");
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("connection to db was failed");
         }
     }
 
