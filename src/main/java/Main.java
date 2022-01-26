@@ -50,6 +50,8 @@ public class Main {
                         bankService.insert(new Bank(commend[1]));
                     } catch (WordException wordException) {
                         System.out.println("incorrect name!");
+                    } catch (Exception e){
+                        System.out.println("wrong input!");
                     }
 
                     break;
@@ -81,6 +83,8 @@ public class Main {
                         System.out.println("incorrect National code!");
                     } catch (PhoneNumberException phoneNumberException) {
                         System.out.println("incorrect phone number!");
+                    } catch (Exception e){
+                        System.out.println("wrong input!");
                     }
                     break;
                 case "bankLogin":
@@ -97,6 +101,8 @@ public class Main {
                         System.out.println("please enter the number!");
                     } catch (NullException nullException) {
                         System.out.println("bank not found!");
+                    }  catch (Exception e){
+                        System.out.println("wrong input!");
                     }
                     break;
                 case "bankBranchLogin":
@@ -113,6 +119,8 @@ public class Main {
                         System.out.println("please enter the number!");
                     } catch (NullException nullException) {
                         System.out.println("bank branch not found!");
+                    }  catch (Exception e){
+                        System.out.println("wrong input!");
                     }
                     break;
                 case "customerLogin":
@@ -128,6 +136,8 @@ public class Main {
                         System.out.println("incorrect national code!");
                     } catch (NullException nullException) {
                         System.out.println("customer not found!");
+                    }  catch (Exception e){
+                        System.out.println("wrong input!");
                     }
                     break;
                 case "menu":
@@ -168,6 +178,8 @@ public class Main {
                                     System.out.println("incorrect name!");
                                 } catch (NationalCodeException nationalCodeException) {
                                     System.out.println("incorrect national code");
+                                } catch (Exception e){
+                                    System.out.println("wrong input!");
                                 }
                                 break;
                             case "help":
@@ -220,6 +232,8 @@ public class Main {
                                     blockAccountService.delete(Integer.valueOf(commend[1]));
                                 } catch (DigitException digitException) {
                                     System.out.println("incorrect input!");
+                                }  catch (Exception e){
+                                    System.out.println("wrong input!");
                                 }
                                 break;
                             case "addEmployee":
@@ -240,6 +254,8 @@ public class Main {
                                     System.out.println("incorrect national code!");
                                 } catch (PhoneNumberException phoneNumberException) {
                                     System.out.println("incorrect phone number!");
+                                }  catch (Exception e){
+                                    System.out.println("wrong input!");
                                 }
 
                                 break;
@@ -293,6 +309,8 @@ public class Main {
                                     System.out.println("incorrect date!");
                                 } catch (DigitException digitException) {
                                     System.out.println("incorrect accountId!");
+                                }  catch (Exception e){
+                                    System.out.println("wrong input!");
                                 }
 
                                 break;
@@ -307,6 +325,8 @@ public class Main {
                                     );
                                 } catch (DigitException digitException) {
                                     System.out.println("enter the number!");
+                                }  catch (Exception e){
+                                    System.out.println("wrong input!");
                                 }
                                 break;
                             case "setPassword":
@@ -320,6 +340,8 @@ public class Main {
                                     System.out.println("credit card not found!");
                                 } catch (DigitException digitException) {
                                     System.out.println("enter the number!");
+                                }  catch (Exception e){
+                                    System.out.println("wrong input!");
                                 }
                                 break;
                             case "deposit":
@@ -337,6 +359,8 @@ public class Main {
                                     System.out.println("incorrect account id!");
                                 } catch (MoneyException moneyException) {
                                     System.out.println("enter the correct money!");
+                                }  catch (Exception e){
+                                    System.out.println("wrong input!");
                                 }
                                 break;
                             case "withdrew":
@@ -354,6 +378,8 @@ public class Main {
                                     System.out.println("incorrect account id!");
                                 } catch (MoneyException moneyException) {
                                     System.out.println("enter the correct money!");
+                                }  catch (Exception e){
+                                    System.out.println("wrong input!");
                                 }
                                 break;
                             case "cardToCard":
@@ -374,6 +400,8 @@ public class Main {
                                     System.out.println("incorrect cvv2");
                                 }catch (MoneyException moneyException){
                                     System.out.println("incorrect money!");
+                                }  catch (Exception e){
+                                    System.out.println("wrong input!");
                                 }
                                 break;
                             case "help":
