@@ -1,4 +1,4 @@
-package Model;
+package Model.util;
 
 public enum TransactionType {
     DEPOSIT,

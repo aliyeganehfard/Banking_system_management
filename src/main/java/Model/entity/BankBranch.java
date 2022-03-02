@@ -1,4 +1,4 @@
-package Model;
+package Model.entity;
 
 public class BankBranch {
     private Integer id;

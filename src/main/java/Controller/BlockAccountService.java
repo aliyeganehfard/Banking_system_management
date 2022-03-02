@@ -1,8 +1,8 @@
 package Controller;
 
-import Model.BankBranch;
-import Model.BlockAccount;
-import Model.BlockAccountRepository;
+import Model.entity.BankBranch;
+import Model.entity.BlockAccount;
+import Model.repository.BlockAccountRepository;
 
 import java.util.List;
 

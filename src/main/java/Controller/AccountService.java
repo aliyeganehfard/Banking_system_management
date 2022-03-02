@@ -1,8 +1,7 @@
 package Controller;
 
-import Model.*;
-
-import java.util.function.LongBinaryOperator;
+import Model.entity.Account;
+import Model.repository.AccountRepository;
 
 public class AccountService {
     AccountRepository accountRepository = new AccountRepository();

@@ -1,11 +1,12 @@
-package Model;
+package Model.repository;
 
 import Exceptions.NullException;
+import Model.util.PostgresConnection;
+import Model.entity.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 

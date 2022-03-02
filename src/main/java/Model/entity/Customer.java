@@ -1,25 +1,25 @@
-package Model;
+package Model.entity;
 
-public class BankEmployee {
+public class Customer {
     private Integer id;
     private BankBranch bankBranch;
     private String name;
     private String nationalCode;
     private String phone;
 
-    public BankEmployee() {
+    public Customer() {
     }
 
-    public BankEmployee(BankBranch bankBranch, String name,
-                        String nationalCode, String phone) {
+    public Customer(BankBranch bankBranch, String name,
+                    String nationalCode, String phone) {
         this.bankBranch = bankBranch;
         this.name = name;
         this.nationalCode = nationalCode;
         this.phone = phone;
     }
 
-    public BankEmployee(Integer id, BankBranch bankBranch,
-                        String name, String nationalCode, String phone) {
+    public Customer(Integer id, BankBranch bankBranch, String name,
+                    String nationalCode, String phone) {
         this.id = id;
         this.bankBranch = bankBranch;
         this.name = name;
@@ -69,9 +69,9 @@ public class BankEmployee {
 
     @Override
     public String toString() {
-        return "BankEmployee{" +
+        return "Customer{" +
                 "id=" + id +
-                ", bankBranch=" + bankBranch.getManagerName() +
+                ", bankBranch=" + bankBranch.getBank().getName() +
                 ", name='" + name + '\'' +
                 ", nationalCode='" + nationalCode + '\'' +
                 ", phone='" + phone + '\'' +

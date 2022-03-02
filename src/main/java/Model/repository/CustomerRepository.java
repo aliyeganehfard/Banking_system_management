@@ -1,6 +1,11 @@
-package Model;
+package Model.repository;
 
 import Exceptions.NullException;
+import Model.util.PostgresConnection;
+import Model.entity.Account;
+import Model.entity.Bank;
+import Model.entity.BankBranch;
+import Model.entity.Customer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,4 +1,9 @@
-package Model;
+package Model.repository;
+
+import Model.util.PostgresConnection;
+import Model.entity.Bank;
+import Model.entity.BankBranch;
+import Model.entity.BankEmployee;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

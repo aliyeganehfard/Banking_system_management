@@ -1,6 +1,8 @@
-package Model;
+package Model.repository;
 
-import Exceptions.NullException;
+import Model.util.PostgresConnection;
+import Model.util.TransactionType;
+import Model.entity.*;
 
 import java.sql.*;
 import java.util.ArrayList;

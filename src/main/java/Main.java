@@ -1,15 +1,10 @@
 import Controller.*;
 import Exceptions.*;
-import Model.*;
+import Model.entity.*;
+import Model.util.TransactionType;
 
-import java.lang.reflect.Executable;
-import java.sql.Array;
-import java.sql.Connection;
 import java.sql.Date;
-import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -23,7 +18,8 @@ public class Main {
         var bankBranchService = new BankBranchService();
         var customerService = new CustomerService();
         var bankEmployeeService = new BankEmployeeService();
-        var accountService = new AccountService();
+        var accountService = new AccountServiceHibernate();
+//        var accountService = new AccountService();
         var blockAccountService = new BlockAccountService();
         var creditCardService = new CreditCardService();
         var transactionService = new TransactionService();
@@ -318,8 +314,8 @@ public class Main {
                                 try {
                                     ExceptionHandling.isDigit(commend[2]);
                                     ExceptionHandling.isDigit(commend[1]);
-                                    accountService.insert(new Account(
-                                                    customer,
+                                    accountService.save(new AccountHibernate(
+                                                    customer.getId(),
                                                     Long.valueOf(commend[2])
                                             )
                                     );

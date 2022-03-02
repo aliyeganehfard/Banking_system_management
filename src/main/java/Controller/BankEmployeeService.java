@@ -1,8 +1,8 @@
 package Controller;
 
-import Model.BankBranch;
-import Model.BankEmployee;
-import Model.BankEmployeeRepository;
+import Model.entity.BankBranch;
+import Model.entity.BankEmployee;
+import Model.repository.BankEmployeeRepository;
 
 import java.util.List;
 

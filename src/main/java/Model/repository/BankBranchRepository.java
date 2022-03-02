@@ -1,6 +1,11 @@
-package Model;
+package Model.repository;
 
 import Exceptions.NullException;
+import Model.entity.Account;
+import Model.entity.Customer;
+import Model.util.PostgresConnection;
+import Model.entity.Bank;
+import Model.entity.BankBranch;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -109,6 +114,82 @@ public class BankBranchRepository {
         }
         return bankBranches;
     }
+
+    public List<Account> findAll(BankBranch bankBranch) {
+        List<Account> accounts = new ArrayList<Account>();
+        try {
+            query = "select * from BSM_account Ba " +
+                    "inner join BSM_customer Bc on Bc.id = Ba.customer_id " +
+                    "inner join BSM_bank_branch Bbb on Bbb.id = Bc.bank_branch_id " +
+                    "inner join BSM_bank Bb on Bb.id = Bbb.bank_id where Bbb.id = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1,bankBranch.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                accounts.add(new Account(
+                                resultSet.getInt("id"),
+                                new Customer(
+                                        resultSet.getInt("customer_id"),
+                                        new BankBranch(resultSet.getInt("bank_branch_id"),
+                                                new Bank(resultSet.getInt("bank_id"), resultSet.getString("bank_name")),
+                                                resultSet.getString("manager_name"),
+                                                resultSet.getString("manager_national_code"),
+                                                resultSet.getString("bank_address")
+                                        ),
+                                        resultSet.getString("customer_name"),
+                                        resultSet.getString("customer_national_code"),
+                                        resultSet.getString("customer_phone")
+                                ),
+                                resultSet.getLong("balance")
+                        )
+                );
+            }
+            preparedStatement.close();
+        } catch (Exception e) {
+//            System.out.println("account find all problem");
+        }
+        return accounts;
+    }
+
+    //    show all customer Account
+    public List<Account> findAll(Customer customer) {
+        List<Account> accounts = new ArrayList<Account>();
+        try {
+            query = "select * from BSM_account Ba " +
+                    "inner join BSM_customer Bc on Bc.id = Ba.customer_id " +
+                    "inner join BSM_bank_branch Bbb on Bbb.id = Bc.bank_branch_id " +
+                    "inner join BSM_bank Bb on Bb.id = Bbb.bank_id where Bc.id = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1,customer.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                accounts.add(new Account(
+                                resultSet.getInt("id"),
+                                new Customer(
+                                        resultSet.getInt("customer_id"),
+                                        new BankBranch(resultSet.getInt("bank_branch_id"),
+                                                new Bank(resultSet.getInt("bank_id"), resultSet.getString("bank_name")),
+                                                resultSet.getString("manager_name"),
+                                                resultSet.getString("manager_national_code"),
+                                                resultSet.getString("bank_address")
+                                        ),
+                                        resultSet.getString("customer_name"),
+                                        resultSet.getString("customer_national_code"),
+                                        resultSet.getString("customer_phone")
+                                ),
+                                resultSet.getLong("balance")
+                        )
+                );
+            }
+            preparedStatement.close();
+        } catch (Exception e) {
+//        System.out.println("account find all problem");
+        }
+        return accounts;
+    }
+
 //    show all customer of bank
 //    show all account of bank
 //    show all transaction

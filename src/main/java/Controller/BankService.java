@@ -1,10 +1,10 @@
 package Controller;
 
-import Exceptions.WordException;
-import Model.*;
+import Model.entity.Bank;
+import Model.entity.BankBranch;
+import Model.repository.BankRepository;
 
 import java.util.List;
-import java.util.Locale;
 
 public class BankService {
     BankRepository bankRepository = new BankRepository();

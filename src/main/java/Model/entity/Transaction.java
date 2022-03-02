@@ -1,4 +1,6 @@
-package Model;
+package Model.entity;
+
+import Model.util.TransactionType;
 
 import java.sql.Date;
 
