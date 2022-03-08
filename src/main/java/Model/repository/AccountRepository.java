@@ -1,10 +1,7 @@
 package Model.repository;
 
+import Model.entity.*;
 import Model.util.PostgresConnection;
-import Model.entity.Account;
-import Model.entity.Bank;
-import Model.entity.BankBranch;
-import Model.entity.Customer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -157,11 +154,11 @@ public class AccountRepository {
     }
 
 //    show all customer Account
-public List<Account> findAll(Customer customer) {
-    List<Account> accounts = new ArrayList<Account>();
+public List<AccountHibernate> findAll(Customer customer) {
+    List<AccountHibernate> accounts = new ArrayList<>();
     try {
-        query = "select * from BSM_account Ba " +
-                "inner join BSM_customer Bc on Bc.id = Ba.customer_id " +
+        query = "select * from BSM_customer Bc " +
+                "inner join AccountHibernate Ba on Bc.id = Ba.customer_id " +
                 "inner join BSM_bank_branch Bbb on Bbb.id = Bc.bank_branch_id " +
                 "inner join BSM_bank Bb on Bb.id = Bbb.bank_id where Bc.id = ?";
 
@@ -169,20 +166,20 @@ public List<Account> findAll(Customer customer) {
         preparedStatement.setInt(1,customer.getId());
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
-            accounts.add(new Account(
+            accounts.add(new AccountHibernate(
                             resultSet.getInt("id"),
-                            new Customer(
+//                            new Customer(
                                     resultSet.getInt("customer_id"),
-                                    new BankBranch(resultSet.getInt("bank_branch_id"),
-                                            new Bank(resultSet.getInt("bank_id"), resultSet.getString("bank_name")),
-                                            resultSet.getString("manager_name"),
-                                            resultSet.getString("manager_national_code"),
-                                            resultSet.getString("bank_address")
-                                    ),
-                                    resultSet.getString("customer_name"),
-                                    resultSet.getString("customer_national_code"),
-                                    resultSet.getString("customer_phone")
-                            ),
+//                                    new BankBranch(resultSet.getInt("bank_branch_id"),
+//                                            new Bank(resultSet.getInt("bank_id"), resultSet.getString("bank_name")),
+//                                            resultSet.getString("manager_name"),
+//                                            resultSet.getString("manager_national_code"),
+//                                            resultSet.getString("bank_address")
+//                                    ),
+//                                    resultSet.getString("customer_name"),
+//                                    resultSet.getString("customer_national_code"),
+//                                    resultSet.getString("customer_phone")
+//                            ),
                             resultSet.getLong("balance")
                     )
             );

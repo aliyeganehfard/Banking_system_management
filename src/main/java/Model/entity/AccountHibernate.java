@@ -1,9 +1,6 @@
 package Model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,6 +8,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Entity
 public class AccountHibernate {
     @Id
@@ -29,12 +27,4 @@ public class AccountHibernate {
         this.balance = balance;
     }
 
-    @Override
-    public String toString() {
-        return "AccountHibernate{" +
-                "id=" + id +
-                ", CustomerId=" + CustomerId +
-                ", balance=" + balance +
-                '}';
-    }
 }

@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.entity.Account;
+import Model.entity.AccountHibernate;
 import Model.entity.CreditCard;
 import Model.entity.Customer;
 import Model.repository.AccountRepository;
@@ -22,7 +23,7 @@ public class CustomerService {
     }
 
 //    show all customer account
-    public List<Account> findAllAccount(Customer customer){
+    public List<AccountHibernate> findAllAccount(Customer customer){
         return accountRepository.findAll(customer);
     }
 //    show credit card

@@ -10,6 +10,10 @@ public class Customer {
     public Customer() {
     }
 
+    public Customer(Integer id) {
+        this.id = id;
+    }
+
     public Customer(BankBranch bankBranch, String name,
                     String nationalCode, String phone) {
         this.bankBranch = bankBranch;

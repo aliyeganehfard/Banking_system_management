@@ -58,12 +58,15 @@ public class AccountRepositoryHibernate implements Interface<AccountHibernate> {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<AccountHibernate> findAll() {
         try(var session = sessionFactory.openSession()){
-            var criteria = session.createCriteria(AccountHibernate.class);
-            List<AccountHibernate> accounts = criteria.list();
-            return accounts;
+            var criteriaBuilder = session.getCriteriaBuilder();
+            var criteriaQuery = criteriaBuilder.createQuery(AccountHibernate.class);
+            var root = criteriaQuery.from(AccountHibernate.class);
+            return session.createQuery(criteriaQuery.select(root)).list();
+//            var criteria = session.createCriteria(AccountHibernate.class);
+//            List<AccountHibernate> accounts = criteria.list();
+//            return accounts;
         }
     }
 }

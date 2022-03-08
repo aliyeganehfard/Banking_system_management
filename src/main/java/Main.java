@@ -282,8 +282,10 @@ public class Main {
                                 }
                                 break;
                             case "showAccount":
-                                List<Account> accountList = customerService.findAllAccount(customer);
-                                for (Account account : accountList) {
+//                                List<Account> accountList = customerService.findAllAccount(customer);
+//                                List<AccountHibernate> accountList = customerService.findAllAccount(customer);
+                                List<AccountHibernate> accountList = accountService.findAll();
+                                for (AccountHibernate account : accountList) {
                                     System.out.println(account);
                                 }
                                 break;
